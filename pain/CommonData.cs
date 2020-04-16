@@ -34,9 +34,6 @@ namespace pain
                     Monitor.Wait(q);
                 }
                 q.Enqueue(value);
-                
-               
-                //добавление в очередь
 
                 Monitor.PulseAll(q);
             }

@@ -40,14 +40,7 @@ namespace pain
                 p[i].Start();
 
             }
-            c = Consumer.getInstance(d, rings,balls, panel1.ClientRectangle,p);//вместо конструктора
-            //Thread.Sleep(30000);
-            //c.Abort();
-            //for (int i = 0; i < Producer.valNum; i++)
-            //{
-            //    p[i].Abort();
-            //}
-
+            c = Consumer.getInstance(d, rings,balls, panel1.ClientRectangle,p);
 
         }
 

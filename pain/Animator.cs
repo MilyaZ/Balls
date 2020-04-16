@@ -33,7 +33,7 @@ namespace pain
             Monitor.Enter(obj);
             bg = BufferedGraphicsManager.Current.Allocate(mainG, new Rectangle(0, 0, width, heigth));
             Monitor.Exit(obj);
-            Monitor.Enter(balls);//параметр ссылочный тип.
+            Monitor.Enter(balls);
             foreach (var b in balls)
             {
                 b.Update(r);
@@ -49,18 +49,6 @@ namespace pain
                 Graphics g = bg.Graphics;
                 g.Clear(Color.White);
                 Monitor.Exit(obj);
-
-                //for (int i = 0; i < Ball.Count; i++)
-                //{
-                //    if (!balls[i].IsAlive)
-                //    {
-                //        //balls[i].Stop();
-                //        balls.Remove(balls[i]);
-                //        i--;
-                //        Ball.Count--;
-                //    }
-
-                //}
 
                 Monitor.Enter(rings);
 

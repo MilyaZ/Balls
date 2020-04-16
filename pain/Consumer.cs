@@ -56,15 +56,6 @@ namespace pain
                 int blue = 0;
                 if (!value.Contains(null))
                 {
-                    //foreach (var v in value)
-                    //{
-
-                    //    bright += v.BgColor.A;
-                    //    red += v.BgColor.R;
-                    //    green += v.BgColor.G;
-                    //    blue += v.BgColor.B;
-                    //    v = null;
-                    //}
                     for(int k =0; k < Producer.valNum; k++)
                     {
                         bright += value[k].BgColor.A;
@@ -80,22 +71,15 @@ namespace pain
 
                        
                     }
-                    
-
                     Color s = Color.FromArgb(bright % 255, red % 255, green % 255, blue % 255);
-                    
-                   
                     Ring r = new Ring(s, rect);
-                    //Producer.EndMove = false;
                     r.Start();
                     Monitor.Enter(ring);
                     ring.Add(r);
                     Monitor.Exit(ring);
-                    value = null;
                     for (int i = 0; i < Producer.valNum; i++)
                     {
                         p[i].EndMoveF();
-                        //Thread.Sleep(1000);
                     }
                 }
             }

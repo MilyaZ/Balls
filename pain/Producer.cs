@@ -28,14 +28,6 @@ namespace pain
             Update(rect1);
             this.valIndex = Math.Abs(valIndex % valNum);
             this.d=d;
-            //var rect = new Rectangle(0, 0, width, heigth);
-            //Ball b = new Ball(d, rect, valIndex);
-            //b.Start();
-            //Monitor.Enter(balls);
-            //balls.Add(b);
-            //Ball.Count++;
-            //Monitor.Exit(balls);
-            //stop = true;
         }
         public void Update(Rectangle r)
         {
@@ -68,14 +60,6 @@ namespace pain
                     Thread.Sleep(300);
                     var first = needBall[valNum - 1].Dequeue();
                     first.Start();
-                    //Monitor.Enter(balls);
-                    //balls.Add(first);
-                    //Monitor.Exit(balls);
-
-                    //if (needBall!=null && needBall[valNum - 1] != null)
-                    //{
-                    //    balls.Add(needBall[valNum - 1].Peek());
-                    //}
                 }
                 if (needBall[valNum - 1].Count <= 2)
                 {
@@ -89,24 +73,8 @@ namespace pain
                     Monitor.Exit(balls);
                     Ball.Count++;
                     Monitor.Exit(balls);
-
-
                 }
-                
-                //if (!EndMove)
-                //{
-                //    foreach (var b in balls)
-                //    {
-                //        b.Move();
-                //    }
-                //}
-
-
-            }
-            
-                
-               
-           
+            }  
         }
         public void Abort()
         {
@@ -117,7 +85,7 @@ namespace pain
             }
             catch (Exception e)
             {
-                //cons = null;
+               
             }
         }
 
@@ -125,41 +93,6 @@ namespace pain
         {
             EndMove = false;
         }
-       
     }
-
-    
 }
 
-/*
-           Monitor.Enter(balls);
-           foreach (var b in balls)
-           {
-               if (valIndex == 0)
-               {
-                   if (b.X < width / 2)
-                   {
-                       b.Move();
-                   }
-                   else { d.Add(valIndex, b); }
-
-               }
-               if (valIndex == 1)
-               {
-                   if (b.X > width / 2)
-                   {
-                       b.Move();
-                   }
-                   else { d.Add(valIndex, b); }
-
-               }
-               if (valIndex == 2)
-               {
-                   if (b.Y < heigth / 2)
-                   {
-                       b.Move();
-                   }
-                   else { d.Add(valIndex, b); }
-
-               }
-               Monitor.Exit(balls);*/
