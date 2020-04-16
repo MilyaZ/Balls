@@ -31,16 +31,16 @@ namespace pain
         private void panel1_Click_1(object sender, EventArgs e)
         {
             a.Start();
-           d = new CommonData(balls,p);
-            p = new Producer[3];
-
-            c = Consumer.getInstance(d,balls,rings, panel1.ClientRectangle, p);//вместо конструктора
            
+            p = new Producer[3];
+            d = new CommonData();
             for (int i = 0; i < Producer.valNum; i++)
             {
-                p[i] = new Producer(d, panel1.ClientRectangle, i,balls);
+                p[i] = new Producer(d, panel1.ClientRectangle, i, balls);
                 p[i].Start();
+
             }
+            c = Consumer.getInstance(d, rings,balls, panel1.ClientRectangle,p);//вместо конструктора
             //Thread.Sleep(30000);
             //c.Abort();
             //for (int i = 0; i < Producer.valNum; i++)

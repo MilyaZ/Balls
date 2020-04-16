@@ -9,12 +9,10 @@ namespace pain
 {
     class CommonData
     {
-        List<Ball> b;
-        Producer[] p;
-        public CommonData(List<Ball> b, Producer[] p)
+       
+        public CommonData()
         {
-            this.b = b;
-            this.p = p;
+           
         }
         public static readonly int maxSize = 4;
         private Queue<Ball>[] vals =
@@ -36,7 +34,8 @@ namespace pain
                     Monitor.Wait(q);
                 }
                 q.Enqueue(value);
-                p[index].EndMoved();
+                
+               
                 //добавление в очередь
 
                 Monitor.PulseAll(q);
@@ -73,7 +72,7 @@ namespace pain
                 {
                 }
                 finally
-                {
+                { 
                     Monitor.Exit(q);
                 }
             }

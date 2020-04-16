@@ -34,10 +34,10 @@ namespace pain
             Update(r); //чтобы можно было менять размеры панели на ходу
             Num = num;
             if (rand == null) rand = new Random();
-            int color = rand.Next(0, 255);
+            int color = rand.Next(10, 255);
             if (num == 0)
             {
-                BgColor = Color.FromArgb(color, 0, 0);
+                BgColor = Color.FromArgb(color,rand.Next(0,100), rand.Next(0,100), 255);
                 //X = -BallD;
                 X = 0;
                 Y = r.Height / 2;
@@ -47,7 +47,7 @@ namespace pain
             if (num == 1)
             {
                 
-                BgColor = Color.FromArgb(0, color, 0);
+                BgColor = Color.FromArgb(color, rand.Next(0,100), 255, rand.Next(0,100));
                 X = r.Width-BallD;
                 Y = r.Height / 2;
                 dx = rand.Next(-6, -1);
@@ -56,7 +56,7 @@ namespace pain
             if (num == 2)
             {
                 
-                BgColor = Color.FromArgb(0, 0, color);
+                BgColor = Color.FromArgb(color,255, rand.Next(0,100), rand.Next(0,100));
                 X = r.Width / 2;
                 Y = 0;
                 dx = 0;
@@ -79,59 +79,66 @@ namespace pain
                 t.Start();
             }
         }
-        public void Stop() { 
-        //{
-        //    stop = true;
-        //    t.Abort();
-        //    t.Join();
-        
+        public void Stop() 
+        {
+            if (t != null)
+            {
+                stop = true;
+                t.Abort();
+                t.Join();
+            }
         }
         public void Move()
         {
-            
-                
-               
-            //условия остановки
             while (!stop)
             {
-                Thread.Sleep(30);
-                if (Num == 0)
+                if (d != null)
                 {
-                    if (X < width / 2)
+                    Thread.Sleep(30);
+                    if (Num == 0)
                     {
-                        //Producer.EndMove = true;
-                        X += dx;
-                        Y += dy;
-                    }
-                    else d.Add(Num, this); 
-                    
-                }
-                if (Num == 1)
-                {
-                    if (X > width / 2)
-                    {
-                        //Producer.EndMove = true;
-                        X += dx;
-                        Y += dy;
-                    }
-                    else d.Add(Num, this); 
+                        if (X < width / 2)
+                        {
+                            X += dx;
+                            Y += dy;
+                        }
+                        else
+                        {
+                            d.Add(Num, this); 
+                            this.Stop();
+                        }
 
-                }
-                if (Num == 2)
-                {
-                    if (Y < heigth / 2)
-                    {
-                       // Producer.EndMove = true;
-                        X += dx;
-                        Y += dy;
                     }
-                    else d.Add(Num, this); 
+                    if (Num == 1)
+                    {
+                        if (X > width / 2)
+                        {
+                            X += dx;
+                            Y += dy;
+                        }
+                        else
+                        {
+                            d.Add(Num, this);
+                            this.Stop();
+                        }
 
+                    }
+                    if (Num == 2)
+                    {
+                        if (Y < heigth / 2)
+                        {
+                            X += dx;
+                            Y += dy;
+                        }
+                        else
+                        {
+                            d.Add(Num, this);
+                            this.Stop();
+                        }
+
+                    }
                 }
             }
-            
-
-
         }
     }
 }

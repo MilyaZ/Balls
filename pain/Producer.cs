@@ -12,24 +12,19 @@ namespace pain
     {
         private int width, heigth;
        
-        private List<Ball> balls = new List<Ball>();
-
-        private static Random rand = null;
         public Color FgColor { get; private set; }
         public Color BgColor { get; private set; }
         private Thread t = null;
-        private bool stop = false;
         private CommonData d;
         public bool EndMove = false;
         public bool IsAlive { get { return t != null && t.IsAlive; } }
-
         public static readonly int valNum = 3;
         private int valIndex; //NUM
-        //Ball b;
-       
-        public Producer(CommonData d, Rectangle rect1, int valIndex,List<Ball> ball )
+        List<Ball> balls;
+        private List<Queue<Ball>> needBall = new List<Queue<Ball>>() {new Queue<Ball>(), new Queue<Ball>(), new Queue<Ball>() };
+    public Producer(CommonData d, Rectangle rect1, int valIndex,List<Ball>balls)
         {
-            balls = ball;
+           this.balls = balls;
             Update(rect1);
             this.valIndex = Math.Abs(valIndex % valNum);
             this.d=d;
@@ -53,7 +48,7 @@ namespace pain
         {
             if (t == null || !t.IsAlive)
             {
-                stop = false;
+                //stop = false;
                 ThreadStart th = new ThreadStart(Produce);
                 t = new Thread(th);
                 t.Start();
@@ -66,37 +61,38 @@ namespace pain
         {
             while (true)
             {
-                var rect = new Rectangle(0, 0, width, heigth);
-                var b1 = new Ball(d, rect, valIndex);
-                Monitor.Enter(balls);
-                balls.Add(b1);
-                Ball.Count++;
-                Monitor.Exit(balls);
-
-
-
-                if (!EndMove && balls!=null)
+                if (!EndMove && needBall[valNum-1].Count != 0)
                 {
+
                     EndMove = true;
-                    Monitor.Enter(balls);
-                    foreach (var b in balls)
-                    {
+                    Thread.Sleep(300);
+                    var first = needBall[valNum - 1].Dequeue();
+                    first.Start();
+                    //Monitor.Enter(balls);
+                    //balls.Add(first);
+                    //Monitor.Exit(balls);
 
-
-                        b.Start();
-
-                       
-
-
-                        //if (balls.Exists(x => x != b))
-                        //{
-
-                        //    EndMove = false;
-                        //}
-
-                    }
-                    Monitor.Exit(balls);
+                    //if (needBall!=null && needBall[valNum - 1] != null)
+                    //{
+                    //    balls.Add(needBall[valNum - 1].Peek());
+                    //}
                 }
+                if (needBall[valNum - 1].Count <= 2)
+                {
+                    var rect = new Rectangle(0, 0, width, heigth);
+                    var b1 = new Ball(d, rect, valIndex);
+                    Monitor.Enter(balls);
+                    //balls.Add(b1);
+                    needBall[valNum - 1].Enqueue(b1);
+                    Monitor.Enter(balls);
+                    balls.Add(b1);
+                    Monitor.Exit(balls);
+                    Ball.Count++;
+                    Monitor.Exit(balls);
+
+
+                }
+                
                 //if (!EndMove)
                 //{
                 //    foreach (var b in balls)
@@ -125,14 +121,11 @@ namespace pain
             }
         }
 
-        public void  EndMoved()
+        public void  EndMoveF()
         {
             EndMove = false;
         }
-        public void EndMoved1()
-        {
-            EndMove = true;
-        }
+       
     }
 
     
