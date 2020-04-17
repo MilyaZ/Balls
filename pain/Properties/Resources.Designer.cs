@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace pain.Properties
+namespace BallMove.Properties
 {
 
 

@@ -1,4 +1,4 @@
-﻿namespace pain
+﻿namespace BallMove
 {
     partial class Form1
     {
