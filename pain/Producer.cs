@@ -10,6 +10,11 @@ namespace BallMove
 {
     class Producer
     {
+
+        public delegate void Progress(int value);
+
+        public event Progress EventProgress;
+
         private int width, heigth;
        
         public Color FgColor { get; private set; }
@@ -53,6 +58,7 @@ namespace BallMove
         {
             while (true)
             {
+                EventProgress?.Invoke(needBall[valNum - 1].Count);
                 if (!EndMove && needBall[valNum-1].Count != 0)
                 {
 
@@ -61,8 +67,11 @@ namespace BallMove
                     var first = needBall[valNum - 1].Dequeue();
                     first.Start();
                 }
-                if (needBall[valNum - 1].Count <= 2)
+                if (needBall[valNum - 1].Count <= 4)
                 {
+                    Thread.Sleep(1000);
+                    if(needBall[valNum - 1].Count>=2) Thread.Sleep(3000);
+                   
                     var rect = new Rectangle(0, 0, width, heigth);
                     var b1 = new Ball(d, rect, valIndex);
                     Monitor.Enter(balls);
