@@ -31,8 +31,8 @@ namespace pain
         {
             width = r.Width;
             height = r.Height;
-            X = width / 2;
-            Y = height / 2;
+            X = width / 2+25;
+            Y = height / 2+25;
             RingColor = c;
             Radius = 0;
         }
