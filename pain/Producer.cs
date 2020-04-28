@@ -70,10 +70,10 @@ namespace BallMove
                 if (needBall[valNum - 1].Count <= 4)
                 {
                     Thread.Sleep(1000);
-                    if(needBall[valNum - 1].Count>=2) Thread.Sleep(3000);
+                    if(needBall[valNum - 1].Count>=2) Thread.Sleep(5000);
                    
                     var rect = new Rectangle(0, 0, width, heigth);
-                    var b1 = new Ball(d, rect, valIndex);
+                    var b1 = new Ball(d, rect, valIndex, this);
                     Monitor.Enter(balls);
                     //balls.Add(b1);
                     needBall[valNum - 1].Enqueue(b1);

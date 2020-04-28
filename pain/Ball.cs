@@ -28,8 +28,10 @@ namespace BallMove
         public bool IsAlive { get { return t != null && t.IsAlive; } }
 
         private CommonData d;
-        public Ball(CommonData d, Rectangle r, int num)
+        Producer r;
+        public Ball(CommonData d, Rectangle r, int num,Producer pro)
         {
+            this.r = pro;
             this.d = d;
             Update(r); //чтобы можно было менять размеры панели на ходу
             Num = num;
@@ -106,6 +108,7 @@ namespace BallMove
                         {
                             d.Add(Num, this); 
                             this.Stop();
+
                         }
 
                     }
